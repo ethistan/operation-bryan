@@ -2,10 +2,21 @@
 
 /* Controllers */
 
-angular.module('myApp.controllers', []).
-  controller('MyCtrl1', [function() {
+angular.module('operationBryan.controllers', []).
+	controller('ConceptCtrl', function ($scope, Concept) {
+		$scope.concept = Concept.query();
 
-  }])
-  .controller('MyCtrl2', [function() {
+		$scope.updateValue = function() {
+			$scope.concept.fields[this.name] = this.newValue;
+			$scope.showValue();
+		};
 
-  }]);
+		$scope.editValue = function() {
+			this.editing = true;
+			this.newValue = this.field;
+		}
+
+		$scope.showValue = function() {
+			this.editing = false;
+		}
+	});

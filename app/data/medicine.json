@@ -1,0 +1,29 @@
+{
+	"name": "Medicine",
+	"overview": "short overview of the thing",
+	"fields": {
+		"description": "This is the field of medicine",
+		"something else": "This is some sample content about things which are important",
+		"really?": "Some other content which I think is simply amazing",
+		"ok, I spose": "What, how did this get in here, I think I should remove it at the right moment"
+	},
+	"children": [
+		{
+			"name": "Haematology",
+			"overview": "This is about blood and stuff"
+		},
+		{
+			"name": "Neurology",
+			"overview": "Zombie BRAINS!"
+		},
+		{
+			"name": "Rheumatology",
+			"overview": "Ack, me aching joints"
+		},
+		{
+			"name": "Cardiology",
+			"overview": "What is love, baby don't hurt me"
+		}
+	],
+	"parents": []
+}

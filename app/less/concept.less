@@ -1,0 +1,88 @@
+.smaller-text {
+	font-size : 0.8em;
+	color     : @grey;
+}
+
+.indent {
+	margin-left : 20px;
+}
+
+.left {
+	width        : 65%;
+	float        : left;
+	margin-right : 1%;
+}
+
+.right {
+	width       : 33%;
+	float       : right;
+	margin-left : 1%;
+}
+
+.well {
+	background  : @very-light-grey;
+	padding-top : 10px;
+}
+
+.conceptLinks {
+	margin-top : 5px;
+
+	.conceptLink, .btn {
+		float  : left;
+		border : 1px solid @grey;
+		height : 100px;
+	}
+
+	.conceptLink {
+		background    : whitesmoke;
+		padding       : 10px 5px;
+		width         : 22.5%;
+		overflow      : hidden;
+		text-overflow : ellipsis;
+		margin        : 0px;
+		margin-left   : -1px;
+
+		h3 {
+			font-size   : 0.9em;
+			padding-top : 0px;
+			line-height : 20px;
+			padding     : 0px;
+			margin      : 0px;
+		}
+	}
+
+	.btn {
+		width      : 4.5%;
+		padding    : 0px;
+		text-align : center;
+
+		&:first-of-type {
+			border-radius : 10px 0px 0px 10px;
+		}
+
+		&:last-of-type {
+			border-radius : 0px 10px 10px 0px;
+			margin-left   : -1px;
+		}
+	}
+}
+
+h2 {
+	margin : 0px;
+}
+
+.concept {
+	.label {
+		text-transform : capitalize;
+	}
+
+	form {
+		margin-bottom : 10px;
+		padding       : 0px 20px;
+
+		textarea {
+			margin-bottom : 5px;
+			width         : 100%;
+		}
+	}
+}
