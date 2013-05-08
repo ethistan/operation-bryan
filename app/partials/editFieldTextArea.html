@@ -1,0 +1,14 @@
+<div>
+	<div ng-show="!editing" ng-click="editValue();" ng-transclude></div>
+
+	<form ng-show="editing" ng-submit="updateValue()">
+		<textarea id="{{name}}" class="text-area" ng-model="newValue"></textarea>
+
+		<div class="floatRight">
+			<button type="submit"><i class="icon icon-ok"></i></button>
+			<button type="button" ng-click="showValue()"><i class="icon icon-remove"></i></button>
+		</div>
+
+		<div class="clear"></div>
+	</form>
+</div>

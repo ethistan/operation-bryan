@@ -25,14 +25,14 @@ body {
   margin-left: 20px;
 }
 .left {
-  width: 65%;
+  width: 66%;
   float: left;
-  margin-right: 1%;
+  margin-right: 0.5%;
 }
 .right {
   width: 33%;
   float: right;
-  margin-left: 1%;
+  margin-left: 0.5%;
 }
 .well {
   background: #f3f3f3;
@@ -91,9 +91,6 @@ h2 {
 }
 .floatRight {
   float: right;
-}
-.floatLeft {
-  float: left;
 }
 .clear {
   clear: both;

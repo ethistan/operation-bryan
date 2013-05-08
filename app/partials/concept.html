@@ -5,19 +5,11 @@
 		<p class="smaller-text indent">{{concept.overview}}</p>
 
 		<div class="field" ng-repeat="(name, field) in concept.fields">
-			<label class="label">{{name}}</label>
+			<label for="{{name}}" class="label">{{name}}</label>
 
-			<p class="indent" ng-show="!editing" ng-click="editValue()">{{field}}</p>
-
-			<form ng-show="editing" ng-submit="updateValue()">
-				<textarea class="text-area" ng-model="newValue"></textarea>
-
-				<div class="floatRight">
-					<button type="submit"><i class="icon icon-ok"></i></button>
-					<button type="button" ng-click="showValue()"><i class="icon icon-remove"></i></button>
-				</div>
-				<div class="clear"></div>
-			</form>
+			<edit-field-text-area>
+				<p class="indent">{{field}}</p>
+			</edit-field-text-area>
 		</div>
 	</div>
 </div>
