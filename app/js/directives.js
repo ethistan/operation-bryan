@@ -12,8 +12,14 @@ angular.module('operationBryan.directives', []).
 		return {
 			restrict: 'E',
 			transclude: true,
-			scope: false,
+			scope: {
+				field: "=field",
+				name: "=name",
+				dictionary: "=dictionary"
+			},
 			controller: function ($scope, $element, $attrs) {
+				var editingName = $scope.field == $scope.name;
+
 				$scope.editValue = function () {
 					$scope.newValue = $scope.field;
 					$scope.editing = true;
@@ -24,7 +30,12 @@ angular.module('operationBryan.directives', []).
 				};
 
 				$scope.updateValue = function () {
-					$scope.concept.fields[this.name] = this.newValue;
+					if (editingName) {
+						$scope.dictionary[this.newValue] = $scope.dictionary[$scope.name];
+						delete $scope.dictionary[$scope.name];
+					} else {
+						$scope.dictionary[$scope.name] = this.newValue;
+					}
 					$scope.showValue();
 				};
 			},
@@ -44,7 +55,7 @@ angular.module('operationBryan.directives', []).
 				$scope.start = 0;
 				$scope.size = 4;
 
-				$scope.$watch('start', function() {
+				$scope.$watch('start', function () {
 					$scope.end = $scope.start + $scope.size;
 				});
 
@@ -59,16 +70,16 @@ angular.module('operationBryan.directives', []).
 					$scope.start = newStart;
 				};
 
-				$scope.hasMore = function(point) {
-					if($scope.conceptList) {
-						if($scope[point] == 0 || $scope[point] >= $scope.conceptList.length) {
+				$scope.hasMore = function (point) {
+					if ($scope.conceptList) {
+						if ($scope[point] == 0 || $scope[point] >= $scope.conceptList.length) {
 							return "disabled";
 						}
 						return "";
 					}
 				};
 
-				$scope.addToList = function() {
+				$scope.addToList = function () {
 					$scope.conceptList.push({
 						name: "New!",
 						overview: "What a deal!"

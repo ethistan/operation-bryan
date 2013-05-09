@@ -1,13 +1,19 @@
 <div class="left">
 	<div class="well concept">
-		<h2>{{concept.name}}</h2>
+		<edit-field-text-area field="concept.name" name="'name'" dictionary="concept">
+			<h2>{{concept.name}}</h2>
+		</edit-field-text-area>
 
-		<p class="smaller-text indent">{{concept.overview}}</p>
+		<edit-field-text-area field="concept.overview" name="'overview'" dictionary="concept">
+			<p class="smaller-text indent">{{concept.overview}}</p>
+		</edit-field-text-area>
 
 		<div class="field" ng-repeat="(name, field) in concept.fields">
-			<label for="{{name}}" class="label">{{name}}</label>
+			<edit-field-text-area field="name" name="name" dictionary="concept.fields">
+				<label for="{{name}}" class="label">{{name}}</label>
+			</edit-field-text-area>
 
-			<edit-field-text-area>
+			<edit-field-text-area field="field" name="name" dictionary="concept.fields">
 				<p class="indent">{{field}}</p>
 			</edit-field-text-area>
 		</div>
