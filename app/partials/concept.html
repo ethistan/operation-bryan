@@ -1,30 +1,30 @@
 <div class="left">
 	<div class="well concept">
-		<edit-field-text-area field="concept.name" name="'name'" dictionary="concept">
+		<edit-field type="input" field="concept.name" name="'name'" dictionary="concept">
 			<h2>{{concept.name}}</h2>
-		</edit-field-text-area>
+		</edit-field>
 
-		<edit-field-text-area field="concept.overview" name="'overview'" dictionary="concept">
+		<edit-field type="input" field="concept.overview" name="'overview'" dictionary="concept">
 			<p class="smaller-text indent">{{concept.overview}}</p>
-		</edit-field-text-area>
+		</edit-field>
 
 		<div class="field" ng-repeat="(name, field) in concept.fields">
-			<edit-field-text-area field="name" name="name" dictionary="concept.fields">
-				<label for="{{name}}" class="label">{{name}}</label>
-			</edit-field-text-area>
+			<edit-field type="input" field="name" name="name" dictionary="concept.fields">
+				<label for="{{name}}" class="label label-info">{{name}}</label>
+			</edit-field>
 
-			<edit-field-text-area field="field" name="name" dictionary="concept.fields">
+			<edit-field type="textarea" field="field" name="name" dictionary="concept.fields">
 				<p class="indent">{{field}}</p>
-			</edit-field-text-area>
+			</edit-field>
 		</div>
+
+		<button class="btn" ng-click="addField();"><i class="icon icon-plus"></i></button>
 	</div>
 </div>
 
 <div class="right">
 	<scrolling-window list="concept.parents" title="Parents"></scrolling-window>
-
 	<scrolling-window list="concept.related" title="Related"></scrolling-window>
-
 	<scrolling-window list="concept.children" title="Children"></scrolling-window>
 </div>
 

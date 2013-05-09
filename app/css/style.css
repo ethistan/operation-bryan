@@ -86,7 +86,9 @@ body {
 }
 .concept form {
   margin-bottom: 10px;
-  padding: 0px 20px;
+}
+.concept form.padding {
+  padding-left: 20px;
 }
 .concept form textarea {
   margin-bottom: 5px;

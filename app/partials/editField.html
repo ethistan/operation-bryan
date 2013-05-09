@@ -1,8 +1,9 @@
 <div>
 	<div ng-show="!editing" class="edit-box" ng-click="editValue();" ng-transclude></div>
 
-	<form ng-show="editing" ng-submit="updateValue()">
-		<textarea id="{{name}}" class="text-area" ng-model="newValue"></textarea>
+	<form ng-show="editing" ng-submit="updateValue()" ng-class="formClass();">
+		<textarea id="{{name}}" class="text-area" ng-show="showInput('textarea')" ng-model="newValue"></textarea>
+		<input id="{{name}}" class="input-xxlarge" ng-show="showInput('input')" ng-model="newValue">
 
 		<div class="floatRight">
 			<button type="submit"><i class="icon icon-ok"></i></button>

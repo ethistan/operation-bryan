@@ -8,7 +8,7 @@ angular.module('operationBryan.directives', []).
 			elm.text(version);
 		};
 	}]).
-	directive('editFieldTextArea',function () {
+	directive('editField',function () {
 		return {
 			restrict: 'E',
 			transclude: true,
@@ -18,11 +18,25 @@ angular.module('operationBryan.directives', []).
 				dictionary: "=dictionary"
 			},
 			controller: function ($scope, $element, $attrs) {
+				$scope.type = $attrs.type;
+
 				var editingName = $scope.field == $scope.name;
+
+				$scope.formClass = function() {
+					if($scope.type == "textarea") {
+						return "padding";
+					}
+					return "";
+				}
+
+				$scope.showInput = function(type) {
+					return $scope.type == type;
+				}
 
 				$scope.editValue = function () {
 					$scope.newValue = $scope.field;
 					$scope.editing = true;
+
 				};
 
 				$scope.showValue = function () {
@@ -39,7 +53,7 @@ angular.module('operationBryan.directives', []).
 					$scope.showValue();
 				};
 			},
-			templateUrl: "partials/editFieldTextArea.html"
+			templateUrl: "partials/editField.html"
 		};
 	}).
 	directive('scrollingWindow', function () {
