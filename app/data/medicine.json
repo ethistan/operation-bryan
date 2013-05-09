@@ -25,5 +25,32 @@
 			"overview": "What is love, baby don't hurt me"
 		}
 	],
-	"parents": []
+	"parents": [
+		{
+			"name": "God",
+			"overview": "Omnipotent, Omnipresent, Omniscient.. still evil in the world though"
+		},
+		{
+			"name": "Jesus",
+			"overview": "Zombie!"
+		},
+		{
+			"name": "Holy Spirit",
+			"overview": "The good, top shelf stuff"
+		}
+	],
+	"related": [
+		{
+			"name": "Homepathy",
+			"overview": "Someone is going to be annoyed this is in here."
+		},
+		{
+			"name": "Chiropracty",
+			"overview": "I spose?"
+		},
+		{
+			"name": "Foot rubs",
+			"overview": "Cures everything!"
+		}
+	]
 }

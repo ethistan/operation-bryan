@@ -17,8 +17,7 @@ describe('Operation Bryan', function () {
 		});
 
 		it('should render the root concept when user navigates to /home', function () {
-			expect(element('[ng-view] h2').text()).
-				toMatch(/Medicine/);
+			expect(element('[ng-view] h2').text()).toMatch(/Medicine/);
 		});
 
 		it('should make the input fields visible when clicked on', function () {
@@ -30,9 +29,36 @@ describe('Operation Bryan', function () {
 
 		it('should hide the input field when clicking on the ok button', function () {
 			element(".field p").click();
-			expect(element("form").css("display")).toBe("block");
+			expect(element("form").css("display")).toMatch("block");
 
 			element(".field button[type='submit']").click();
+		});
+
+		it('should hide the input field when clicking on the cancel button', function () {
+			element(".field p").click();
+			expect(element("form").css("display")).toMatch("block");
+
+			element(".field button[type='button']").click();
+		});
+
+		it('should change the value when editing a field and pressing the ok button', function() {
+			var sampleInput = "This is a sample input";
+
+			element(".field:first p").click();
+			input("newValue").enter(sampleInput);
+			element(".field:first button[type='submit']").click();
+
+			expect(element(".field:first p").text()).toBe(sampleInput);
+		});
+
+		it('should NOT change the value when editing a field and pressing the cancel button', function() {
+			var sampleInput = "This is a sample input";
+
+			element(".field:first p").click();
+			input("newValue").enter(sampleInput);
+			element(".field:first button[type='button']").click();
+
+			expect(element(".field:first p").text()).not().toBe(sampleInput);
 		});
 	});
 });

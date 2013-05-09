@@ -1,0 +1,21 @@
+<div class="well linkHolder">
+	<div class="floatRight">
+		<button class="btn" ng-click="addToList();"><i class="icon icon-plus"></i></button>
+	</div>
+
+	<h3 class="title">{{title}}</h3>
+
+	<div class="conceptLinks">
+		<button class="btn" ng-class="hasMore('start')" ng-click="changeListValue(-1);"><i class="icon icon-chevron-left"></i>
+		</button>
+
+		<div class="conceptLink " ng-repeat="concept in conceptList | window:start:size">
+			<h3>{{concept.name}}</h3>
+
+			<p class="smaller-text">{{concept.overview}}</p>
+		</div>
+		<button class="btn" ng-class="hasMore('end')" ng-click="changeListValue(1);"><i class="icon icon-chevron-right"></i>
+		</button>
+	</div>
+	<div class="clear"></div>
+</div>

@@ -30,7 +30,9 @@ describe('controllers', function () {
 					},
 					children: [
 						"Haematology",
-						"Neurology"
+						"Neurology",
+						"Cardiology",
+						"Rheumatology"
 					],
 					parents: []
 				}

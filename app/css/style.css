@@ -38,6 +38,9 @@ body {
   background: #f3f3f3;
   padding-top: 10px;
 }
+.edit-box {
+  cursor: pointer;
+}
 .conceptLinks {
   margin-top: 5px;
 }
@@ -75,7 +78,7 @@ body {
   border-radius: 0px 10px 10px 0px;
   margin-left: -1px;
 }
-h2 {
+.title {
   margin: 0px;
 }
 .concept .label {

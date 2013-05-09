@@ -15,34 +15,11 @@
 </div>
 
 <div class="right">
-	<div class="well linkHolder">
-		<h2>Parents</h2>
+	<scrolling-window list="concept.parents" title="Parents"></scrolling-window>
 
-		<div class="well conceptLink" ng-repeat="parent in concept.parents">
-			Stern parent: {{parent}}
-		</div>
-	</div>
-	<div class="well linkHolder">
-		<h2>Related</h2>
+	<scrolling-window list="concept.related" title="Related"></scrolling-window>
 
-		<div class="well conceptLink" ng-repeat="related in concept.related">
-			We can't date, we're related: {{related}}
-		</div>
-	</div>
-	<div class="well linkHolder">
-		<h2>Children</h2>
-
-		<div class="conceptLinks">
-			<button class="btn"><i class="icon icon-chevron-left"></i></button>
-			<div class="conceptLink " ng-repeat="child in concept.children">
-				<h3>{{child.name}}</h3>
-
-				<p class="smaller-text">{{child.overview}}</p>
-			</div>
-			<button class="btn"><i class="icon icon-chevron-right"></i></button>
-		</div>
-		<div class="clear"></div>
-	</div>
+	<scrolling-window list="concept.children" title="Children"></scrolling-window>
 </div>
 
 <div class="clear"></div>
