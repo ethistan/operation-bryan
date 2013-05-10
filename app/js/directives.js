@@ -13,12 +13,11 @@ angular.module('operationBryan.directives', []).
 			restrict: 'E',
 			transclude: true,
 			scope: {
-				field: "=field",
-				name: "=name",
-				dictionary: "=dictionary"
+				field: "=field"
 			},
 			controller: function ($scope, $element, $attrs) {
 				$scope.type = $attrs.type;
+				$scope.name = $attrs.name;
 
 				var editingName = $scope.field == $scope.name;
 
@@ -34,7 +33,7 @@ angular.module('operationBryan.directives', []).
 				}
 
 				$scope.editValue = function () {
-					$scope.newValue = $scope.field;
+					$scope.newValue = $scope.field[$scope.name];
 					$scope.editing = true;
 				};
 
@@ -43,15 +42,13 @@ angular.module('operationBryan.directives', []).
 				};
 
 				$scope.updateValue = function () {
+					console.log("Field:", $scope.field);
+					console.log("Value:", $scope.name);
+
 					var newValue = this.newValue;
 
 					if (newValue.length) {
-						if (editingName) {
-							$scope.dictionary[this.newValue] = $scope.dictionary[$scope.name];
-							delete $scope.dictionary[$scope.name];
-						} else {
-							$scope.dictionary[$scope.name] = this.newValue;
-						}
+						$scope.field[$scope.name] = this.newValue;
 					}
 					$scope.showValue();
 				};

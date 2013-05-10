@@ -1,20 +1,20 @@
 <div class="left">
 	<div class="well concept">
-		<edit-field type="input" field="concept.name" name="'name'" dictionary="concept">
+		<edit-field type="input" name="name" field="concept">
 			<h2 class="title">{{concept.name}}</h2>
 		</edit-field>
 
-		<edit-field type="input" field="concept.overview" name="'overview'" dictionary="concept">
+		<edit-field type="input" name="overview" field="concept">
 			<p class="smaller-text indent">{{concept.overview}}</p>
 		</edit-field>
 
-		<div class="field" ng-repeat="(name, field) in concept.fields">
-			<edit-field type="input" field="name" name="name" dictionary="concept.fields">
-				<label for="{{name}}" class="label label-info">{{name}}</label>
+		<div class="field" ng-repeat="field in concept.fields">
+			<edit-field type="input" name="name" field="field">
+				<label for="{{field.name}}" class="label label-info">{{field.name}}</label>
 			</edit-field>
 
-			<edit-field type="textarea" field="field" name="name" dictionary="concept.fields">
-				<p class="indent">{{field}}</p>
+			<edit-field type="textarea" name="value" field="field">
+				<p class="indent">{{field.value}}</p>
 			</edit-field>
 		</div>
 

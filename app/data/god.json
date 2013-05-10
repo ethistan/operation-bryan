@@ -1,0 +1,34 @@
+{
+	"name": "God",
+	"overview": "Omnipotent, Omnipresent, Omniscient.. still evil in the world though",
+	"fields": [
+		{
+			"name": "Description",
+			"value": "Lord of all things and hater of blende cotton/polyester pants"
+		},
+		{
+			"name": "Likes",
+			"value": "Christians, duh"
+		},
+		{
+			"name": "Dislikes",
+			"value": "Everything not in the like list"
+	}],
+	"children": [
+		{
+			"name": "Medicine",
+			"overview": "Everything and nothing"
+		}
+	],
+	"parents": [],
+	"related": [
+		{
+			"name": "Jesus",
+			"overview": "Zombie!"
+		},
+		{
+			"name": "Holy Spirit",
+			"overview": "The good, top shelf stuff"
+		}
+	]
+}
