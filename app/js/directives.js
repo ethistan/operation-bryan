@@ -22,21 +22,20 @@ angular.module('operationBryan.directives', []).
 
 				var editingName = $scope.field == $scope.name;
 
-				$scope.formClass = function() {
-					if($scope.type == "textarea") {
-						return "padding";
+				$scope.formClass = function () {
+					if ($scope.type == "textarea") {
+						return "edit-form padding";
 					}
-					return "";
+					return "edit-form";
 				}
 
-				$scope.showInput = function(type) {
+				$scope.showInput = function (type) {
 					return $scope.type == type;
 				}
 
 				$scope.editValue = function () {
 					$scope.newValue = $scope.field;
 					$scope.editing = true;
-
 				};
 
 				$scope.showValue = function () {
@@ -44,11 +43,15 @@ angular.module('operationBryan.directives', []).
 				};
 
 				$scope.updateValue = function () {
-					if (editingName) {
-						$scope.dictionary[this.newValue] = $scope.dictionary[$scope.name];
-						delete $scope.dictionary[$scope.name];
-					} else {
-						$scope.dictionary[$scope.name] = this.newValue;
+					var newValue = this.newValue;
+
+					if (newValue.length) {
+						if (editingName) {
+							$scope.dictionary[this.newValue] = $scope.dictionary[$scope.name];
+							delete $scope.dictionary[$scope.name];
+						} else {
+							$scope.dictionary[$scope.name] = this.newValue;
+						}
 					}
 					$scope.showValue();
 				};

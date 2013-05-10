@@ -8,7 +8,7 @@
 angular.module('operationBryan.services', ['ngResource']).
 	value('version', '0.1').
 	factory("Concept", function($resource) {
-		return $resource("/data/:conceptId.json", {}, {
+		return $resource("/app/data/:conceptId.json", {}, {
 			query: {method: "GET", params:{conceptId: "medicine"}}
 		})
 	});

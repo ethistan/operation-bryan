@@ -23,42 +23,46 @@ describe('Operation Bryan', function () {
 		it('should make the input fields visible when clicked on', function () {
 			expect(element("form").css("display")).toBe("none")
 
-			element(".field p").click();
-			expect(element("form").css("display")).toBe("block");
+			element(".edit-box:first").click();
+			expect(element(".edit-form:first").css("display")).toBe("block");
 		});
 
 		it('should hide the input field when clicking on the ok button', function () {
-			element(".field p").click();
-			expect(element("form").css("display")).toMatch("block");
+			element(".edit-box:first").click();
+			expect(element(".edit-form").css("display")).toMatch("block");
 
 			element(".field button[type='submit']").click();
 		});
 
 		it('should hide the input field when clicking on the cancel button', function () {
-			element(".field p").click();
-			expect(element("form").css("display")).toMatch("block");
+			element(".edit-box:first").click();
+			expect(element(".edit-form:first").css("display")).toMatch("block");
 
-			element(".field button[type='button']").click();
+			element(".edit-form:first button[type='button']").click();
 		});
 
 		it('should change the value when editing a field and pressing the ok button', function() {
 			var sampleInput = "This is a sample input";
 
-			element(".field:first p").click();
+			element(".edit-box:first").click();
 			input("newValue").enter(sampleInput);
-			element(".field:first button[type='submit']").click();
+			element(".edit-form:first button[type='submit']").click();
 
-			expect(element(".field:first p").text()).toBe(sampleInput);
+			expect(element(".edit-box:first").text()).toMatch(sampleInput);
 		});
 
 		it('should NOT change the value when editing a field and pressing the cancel button', function() {
 			var sampleInput = "This is a sample input";
 
-			element(".field:first p").click();
+			element(".edit-box:first").click();
 			input("newValue").enter(sampleInput);
-			element(".field:first button[type='button']").click();
+			element(".edit-form:first button[type='button']").click();
 
-			expect(element(".field:first p").text()).not().toBe(sampleInput);
+			expect(element(".edit-box:first").text()).not().toMatch(sampleInput);
+		});
+
+		it('should not change the value when the text entered is empty', function() {
+			
 		});
 	});
 });
