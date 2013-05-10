@@ -7,7 +7,7 @@ angular.module('operationBryan.controllers', []).
 		if(!$routeParams.conceptId) {
 			$routeParams.conceptId = "medicine";
 		}
-		$scope.concept = Concept.get({conceptId: $routeParams.conceptId});
+		$scope.concept = Concept.get({conceptId: $routeParams.conceptId.toLowerCase()});
 
 		$scope.addField = function() {
 			$scope.concept.fields.push({
