@@ -1,72 +1,107 @@
+import cloudinary
 import os
 
 from bson.objectid import ObjectId
 from flask import Flask, render_template, request, send_from_directory
 
-from server.db_connector import database as mongo
-from server.image_connector import getConnection as getImageConnection
+from db_connector import database as mongo
+from image_connector import getConnection as getImageConnection
 
-app = Flask(__name__, static_folder="app")
+app = Flask("Operation Bryan")
 
 database = mongo()
 getImageConnection()
 
+static_root = "../app"
+test_root = "../test"
+
 @app.route('/')
 def index():
-	return send_from_directory("app", "index.html")
+	return send_from_directory(static_root, "index.html")
 
 @app.route('/partials/<file>')
 def getPartial(file):
-	return send_from_directory('app', "partials/" + file)
+	return send_from_directory(static_root, "partials/" + file)
 
 @app.route('/css/<cssFile>')
 def getCss(cssFile):
-	return send_from_directory('app', "css/" + cssFile)
+	return send_from_directory(static_root, "css/" + cssFile)
 
 @app.route('/lib/<library>/<jsFile>')
 def getLibraryJs(library, jsFile):
-	return send_from_directory('app', "lib/" + library + "/" + jsFile)
+	print "The other other lib"
+	return send_from_directory(static_root, "lib/" + library + "/" + jsFile)
 
 @app.route('/js/<jsFile>')
 def getJs(jsFile):
-	return send_from_directory('app', "js/" + jsFile)
+	return send_from_directory(static_root, "js/" + jsFile)
 
 @app.route('/img/<imgFile>')
 def getImg(imgFile):
-	return send_from_directory('app', "img/" + imgFile)
+	return send_from_directory(static_root, "img/" + imgFile)
+
+@app.route('/test')
+def test():
+	return send_from_directory(test_root, "e2e/runner.html")
+
+@app.route('/scenarios')
+def testScenarios():
+	return send_from_directory(test_root, "e2e/scenarios.js")
+
+
+@app.route('/test/lib/<library>/<fileName>')
+def getLibrary(library, fileName):
+	print "Getting route:", library
+	return send_from_directory(test_root, "lib/" + library + "/" + fileName)
 
 @app.route('/favicon.ico')
 def favicon():
-	return ""
+	return send_from_directory(static_root, 'img/favicon.ico')
 
-@app.route('/api/concept/<conceptId>')
+@app.route('/api/concept/root')
+def getRoot():
+	rootId = database.getSingleData("metaData", selection={"root"}, dump=False)['root']
+	return getConcept(rootId)
+
+@app.route('/api/concept/<conceptId>', methods=["GET"])
 def getConcept(conceptId):
-	conceptId = conceptId.title()
-	data = database.getData("concepts", criteria={"name": conceptId}, dump=False)[0]
+	data = database.getSingleData("concepts", criteria={"_id": ObjectId(conceptId)}, dump=False)
+
+	arrNames = ["parents", "related", "children"]
+
+	for array in arrNames:
+		newArray = []
+
+		for child in data[array]:
+			listData = database.getSingleData("concepts", criteria={"_id": ObjectId(child)}, dump=False, selection={"name": True, "overview": True})
+			newArray.append({"id": child, "name": listData["name"], "overview": listData["overview"]})
+
+		data[array] = newArray
 
 	return database.dumpObject(data)
 
-@app.route('/properties/<propertyName>')
-def getProperty(propertyName):
-	data = {
-		"name": propertyName,
-	    "html": render_template("properties/" + propertyName + ".html")
-	}
+@app.route('/api/concept/<conceptId>', methods=['POST'])
+def saveConcept(conceptId):
+	data = request.json
+	data = database.createBSONID(data)
 
-	return database.dumpObject(data)
+	arrNames = ["parents", "related", "children"]
+
+	for array in arrNames:
+		newArray = []
+
+		for child in data[array]:
+			newArray.append(child["id"])
+
+		data[array] = newArray
+
+	database.save("concepts", data)
+
+	return getConcept(conceptId)
 
 @app.route('/image/<imagePage>')
 def getImagePage(imagePage):
 	return render_template("image/" + imagePage + ".html")
-
-@app.route('/saveForm', methods=['POST'])
-def saveForm():
-	data = request.json
-	data = database.createBSONID(data)
-
-	database.save("forms", data)
-
-	return database.dumpObject({"status": "success"})
 
 #noinspection PyBroadException
 @app.route("/createImage", methods=['POST'])
@@ -115,16 +150,6 @@ def updateImage():
 	database.save("images", data)
 
 	return database.dumpObject({"status": "success"})
-
-@app.route("/latest_form")
-def getLatestForm():
-	formData = database.getData("forms", False)
-
-	return database.dumpObject(formData[0])
-
-@app.route("/images")
-def getImages():
-	return database.getData("images")
 
 def getImage(imageId):
 	objectID = ObjectId(imageId)

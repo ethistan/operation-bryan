@@ -1,24 +1,26 @@
-<div class="well linkHolder">
-	<div class="floatRight">
-		<button class="btn" ng-click="addToList();"><i class="icon icon-plus"></i></button>
+<div ng-class="conceptLinkHolderClass();">
+	<div class="title-holder">
+		<h3 class="title">{{title}}</h3>
+
+		<button class="btn" ng-click="addToList();">
+			<i class="icon icon-plus"></i>
+		</button>
 	</div>
 
-	<h3 class="title">{{title}}</h3>
-
-	<div class="conceptLinks">
-		<button class="btn" ng-class="hasMore('start')" ng-click="changeListValue(-1);"><i
-				class="icon icon-chevron-left"></i>
+	<div class="concept-links">
+		<button class="btn" ng-class="hasMore('start')" ng-click="changeListValue(-1);">
+			<i ng-class="buttonIcon('previous');"></i>
 		</button>
 
-		<div class="conceptLink " ng-repeat="concept in conceptList | window:start:size">
-			<a href="#/concepts/{{concept.name}}" class="thumb">
+		<div class="concept-link" ng-repeat="concept in conceptList | window:start:size">
+			<a href="#/concepts/{{concept.id}}" class="thumb">
 				<h3>{{concept.name}}</h3>
 
 				<p class="smaller-text">{{concept.overview}}</p>
 			</a>
 		</div>
-		<button class="btn" ng-class="hasMore('end')" ng-click="changeListValue(1);"><i
-				class="icon icon-chevron-right"></i>
+		<button class="btn" ng-class="hasMore('end')" ng-click="changeListValue(1);">
+			<i ng-class="buttonIcon('next');"></i>
 		</button>
 	</div>
 	<div class="clear"></div>

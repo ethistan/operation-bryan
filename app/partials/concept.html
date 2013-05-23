@@ -1,31 +1,42 @@
-<div class="left">
-	<div class="well concept">
-		<edit-field type="input" name="name" field="concept">
-			<h2 class="title">{{concept.name}}</h2>
-		</edit-field>
+<div class="top">
+	<scrolling-window list="concept.parents" title="Parents"></scrolling-window>
+</div>
 
-		<edit-field type="input" name="overview" field="concept">
-			<p class="smaller-text indent">{{concept.overview}}</p>
-		</edit-field>
+<div class="central-strip">
+	<div class="left">
+		<div class="well concept">
+			<!--<div class="floatRight smaller-text">-->
+				<!--{{concept.id}}-->
+			<!--</div>-->
 
-		<div class="field" ng-repeat="field in concept.fields">
-			<edit-field type="input" name="name" field="field">
-				<label for="{{field.name}}" class="label label-info">{{field.name}}</label>
+			<edit-field type="input" name="name" field="concept">
+				<h2 class="title">{{concept.name}}</h2>
 			</edit-field>
 
-			<edit-field type="textarea" name="value" field="field">
-				<p class="indent">{{field.value}}</p>
+			<edit-field type="input" name="overview" field="concept">
+				<p class="smaller-text indent">{{concept.overview}}</p>
 			</edit-field>
+
+			<div class="field" ng-repeat="field in concept.fields">
+				<edit-field type="input" name="name" field="field">
+					<label for="{{field.name}}" class="label label-info">{{field.name}}</label>
+				</edit-field>
+
+				<edit-field type="textarea" name="value" field="field">
+					<p class="indent" ng-bind-html-unsafe="field.value"></p>
+				</edit-field>
+			</div>
+
+			<button class="btn" ng-click="addField();"><i class="icon icon-plus"></i></button>
 		</div>
+	</div>
 
-		<button class="btn" ng-click="addField();"><i class="icon icon-plus"></i></button>
+	<div class="right">
+		<scrolling-window list="concept.related" title="Related" orientation="vertical"></scrolling-window>
 	</div>
 </div>
 
-<div class="right">
-	<scrolling-window list="concept.parents" title="Parents"></scrolling-window>
-	<scrolling-window list="concept.related" title="Related"></scrolling-window>
+<div class="bottom">
 	<scrolling-window list="concept.children" title="Children"></scrolling-window>
 </div>
 
-<div class="clear"></div>

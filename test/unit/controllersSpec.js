@@ -15,32 +15,59 @@ describe('controllers', function () {
 	});
 
 	describe("ConceptCtrl", function () {
-		var scope,
-			$httpBackend,
-			ctrl,
-			rootMedicineConcept = function () {
-				return {
-					"name": "Medicine",
-					"overview": "short overview of the thing",
-					fields: {
-						"description": "This is the field of medicine",
-						"something else": "thing1",
-						"really?": "thing2",
-						"ok, I spose": "thing3"
-					},
-					children: [
-						"Haematology",
-						"Neurology",
-						"Cardiology",
-						"Rheumatology"
-					],
-					parents: []
-				}
-			};
+		var scope, $httpBackend, ctrl, routeParams;
+
+		var rootMedicineConcept = function () {
+			return {
+				"_id": {
+					"$oid": "1234"
+				},
+				"name": "Medicine",
+				"overview": "short overview of the thing",
+				fields: {
+					"description": "This is the field of medicine",
+					"something else": "thing1",
+					"really?": "thing2",
+					"ok, I spose": "thing3"
+				},
+				children: [
+					"Haematology",
+					"Neurology",
+					"Cardiology",
+					"Rheumatology"
+				],
+				parents: []
+			}
+		};
+
+		var modifiedRootConcept = function() {
+			return {
+				"id": "1234",
+				"name": "Medicine",
+				"overview": "short overview of the thing",
+				fields: {
+					"description": "This is the field of medicine",
+					"something else": "thing1",
+					"really?": "thing2",
+					"ok, I spose": "thing3"
+				},
+				children: [
+					"Haematology",
+					"Neurology",
+					"Cardiology",
+					"Rheumatology"
+				],
+				parents: []
+			}
+
+		};
 
 		beforeEach(inject(function (_$httpBackend_, $rootScope, $routeParams, $controller) {
 			$httpBackend = _$httpBackend_;
-			$httpBackend.expectGET('/app/data/medicine.json').respond(rootMedicineConcept());
+			$httpBackend.expectGET('api/concept/1234').respond(rootMedicineConcept());
+
+			routeParams = $routeParams;
+			routeParams.id = "1234";
 
 			scope = $rootScope.$new();
 			ctrl = $controller("ConceptCtrl", {$scope: scope});
@@ -50,7 +77,7 @@ describe('controllers', function () {
 			expect(scope.concept).toEqualData({});
 			$httpBackend.flush();
 
-			expect(scope.concept).toEqualData(rootMedicineConcept());
+			expect(scope.concept).toEqualData(modifiedRootConcept());
 		}));
 	});
 });

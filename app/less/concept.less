@@ -7,16 +7,44 @@
 	margin-left : 20px;
 }
 
+.central-strip {
+	position : absolute;
+	top      : 145px;
+	bottom   : 85px;
+	left     : 0px;
+	right    : 0px;
+}
+
+.left, .right {
+	position : absolute;
+	height   : 100%;
+}
+
 .left {
-	width        : 66%;
-	float        : left;
-	margin-right : 0.5%;
+	left    : 0px;
+	right   : 250px;
+	margin  : 0px;
+	padding : 10px 10px 10px 0px;
+
+	.well {
+		margin : 0px;
+	}
 }
 
 .right {
-	width       : 33%;
-	float       : right;
-	margin-left : 0.5%;
+	width : 250px;
+	right : 0px;
+	top   : 0px;
+}
+
+.top, .bottom {
+	position : fixed;
+	height   : 85px;
+	width    : 100%;
+
+	&.bottom {
+		bottom : 0px;
+	}
 }
 
 .well {
@@ -28,54 +56,132 @@
 	cursor : pointer;
 }
 
-.conceptLinks {
-	margin-top : 5px;
+.concept-link-holder {
+	background : @very-light-grey;
+	padding    : 5px;
+	height     : 100%;
 
-	.conceptLink, .btn {
-		float  : left;
-		border : 1px solid @grey;
-		height : 100px;
-	}
-
-	.conceptLink {
-		background    : whitesmoke;
-		padding       : 10px 5px;
-		width         : 22.5%;
-		overflow      : hidden;
-		text-overflow : ellipsis;
-		margin        : 0px;
-		margin-left   : -1px;
-
-		h3 {
-			font-size   : 0.9em;
-			padding-top : 0px;
-			line-height : 20px;
-			padding     : 0px;
-			margin      : 0px;
-		}
-	}
-
-	.btn {
-		width      : 4.5%;
-		padding    : 0px;
+	.title-holder {
+		float      : left;
+		width      : 110px;
 		text-align : center;
 
-		&:first-of-type {
-			border-radius : 10px 0px 0px 10px;
-		}
-
-		&:last-of-type {
-			border-radius : 0px 10px 10px 0px;
-			margin-left   : -1px;
+		.title {
+			line-height : 40px;
 		}
 	}
-}
 
-.title {
-	margin : 0px;
+	.concept-links {
+		margin-top  : 5px;
+		margin-left : 110px;
+
+		.concept-link, .btn {
+			float  : left;
+			border : 1px solid @grey;
+			height : 70px;
+		}
+
+		.concept-link {
+			background    : whitesmoke;
+			padding       : 5px;
+			width         : 19.2%;
+			overflow      : hidden;
+			text-overflow : ellipsis;
+			margin        : 0px;
+			margin-left   : -1px;
+
+			h3 {
+				font-size   : 0.9em;
+				padding-top : 0px;
+				line-height : 20px;
+				padding     : 0px;
+				margin      : 0px;
+			}
+
+			&:hover {
+				background : @light-grey;
+				cursor     : pointer;
+
+				a {
+					text-decoration : none;
+
+					color           : #00009d;
+
+					.smaller-text {
+						color : white;
+					}
+				}
+			}
+		}
+
+		.btn {
+			width      : 2%;
+			padding    : 0px;
+			text-align : center;
+
+			&:first-of-type {
+				border-radius : 10px 0px 0px 10px;
+			}
+
+			&:last-of-type {
+				border-radius : 0px 10px 10px 0px;
+				margin-left   : -1px;
+			}
+		}
+	}
+
+	&.vertical {
+		overflow-y : hidden;
+
+		.title-holder {
+			width : 100%;
+
+			.title {
+				line-height : 35px;
+				float       : left;
+			}
+
+			.btn {
+				float : right;
+			}
+		}
+
+		.concept-links {
+			margin : 0px;
+
+			.concept-link, .btn {
+				float : none;
+				width : 100%;
+			}
+
+			.concept-link {
+				margin-left : 0px;
+			}
+
+			.btn {
+				height     : 2%;
+				padding    : 0px;
+				text-align : center;
+
+				&:first-of-type {
+					border-radius : 10px 10px 0px 0px;
+				}
+
+				&:last-of-type {
+					border-radius : 0px 0px 10px 10px;
+					margin-left   : 0px;
+				}
+			}
+
+		}
+
+	}
 }
 
 .concept {
+	height     : 100%;
+	overflow-y : auto;
+
 	.label {
 		text-transform : capitalize;
 	}
@@ -84,7 +190,7 @@
 		margin-bottom : 10px;
 
 		&.padding {
-			padding-left: 20px;
+			padding-left : 20px;
 		}
 
 		textarea {
@@ -92,4 +198,8 @@
 			width         : 100%;
 		}
 	}
+}
+
+.title {
+	margin : 0px;
 }

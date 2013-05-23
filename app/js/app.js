@@ -10,6 +10,6 @@ angular.module('operationBryan',
 			'operationBryan.controllers'
 		]).
 	config(['$routeProvider', function ($routeProvider) {
-		$routeProvider.when('/concepts/:conceptId', {templateUrl: 'partials/concept.html', controller: 'ConceptCtrl'});
-		$routeProvider.otherwise({redirectTo: '/concepts/medicine'});
+		$routeProvider.when('/concepts/:id', {templateUrl: 'partials/concept.html', controller: 'ConceptCtrl'});
+		$routeProvider.otherwise({redirectTo: '/concepts/root'});
 	}]);

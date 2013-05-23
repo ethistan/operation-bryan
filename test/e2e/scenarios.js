@@ -4,11 +4,11 @@
 
 describe('Operation Bryan', function () {
 	beforeEach(function () {
-		browser().navigateTo('../../app/index.html');
+		browser().navigateTo('/');
 	});
 
 	it('should automatically redirect to /home when location hash/fragment is empty', function () {
-		expect(browser().location().url()).toBe("/concepts/medicine");
+		expect(browser().location().url()).toBe("/concepts/root");
 	});
 
 	describe('home page', function () {
@@ -71,6 +71,28 @@ describe('Operation Bryan', function () {
 			element(firstForm + " button[type='submit']").click();
 
 			expect(element(firstEditBox).text()).not().toBe("");
+		});
+
+		it('should convert a web link into an <a></a> when saving the field', function() {
+			element(firstEditBox).click();
+			input("newValue").enter("www.google.com|Google");
+			element(firstForm + " button[type='submit']").click();
+
+			expect(element(firstEditBox).html()).toMatch("&lt;a target='_blank' href='http://www.google.com'&gt;Google&lt;/a&gt;");
+		});
+
+		it('should convert a web link back into the pipe format when editing a field', function() {
+			element(firstEditBox).click();
+			input("newValue").enter("www.google.com|Google");
+			element(firstForm + " button[type='submit']").click();
+
+			expect(element(firstEditBox).html()).toMatch("&lt;a target='_blank' href='http://www.google.com'&gt;Google&lt;/a&gt;");
+
+			element(firstEditBox).click();
+
+			expect(element(firstForm + " input").val()).toMatch("http://www.google.com|Google");
+
+
 		});
 	});
 });

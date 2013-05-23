@@ -4,15 +4,30 @@
 
 angular.module('operationBryan.controllers', []).
 	controller('ConceptCtrl', function ($scope, $routeParams, Concept) {
-		if(!$routeParams.conceptId) {
-			$routeParams.conceptId = "medicine";
-		}
-		$scope.concept = Concept.get({conceptId: $routeParams.conceptId.toLowerCase()});
+		var listener;
 
-		$scope.addField = function() {
+		$scope.concept = Concept.get({id: $routeParams.id}, loadFunction);
+
+		$scope.addField = function () {
 			$scope.concept.fields.push({
 				name: "newField",
 				value: "Some new content for people who are awesome"
 			});
+		};
+
+		function loadFunction() {
+			$scope.concept.id = $scope.concept._id.$oid;
+			delete $scope.concept._id;
+
+			listener = $scope.$watch('concept', saveFunction, true);
 		}
-	});
+
+		function saveFunction(oldValue, newValue) {
+			if (oldValue != newValue) {
+				listener();
+
+				$scope.concept.$save(loadFunction);
+			}
+		};
+	})
+;

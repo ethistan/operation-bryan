@@ -5,22 +5,23 @@ from mongokit.connection import Connection
 import sys
 import os
 
-__author__ = 'pbudd'
+__author__ = 'Peter Budd'
+
 
 class database:
 	def __init__(self):
-		mongodb_uri = os.environ.get("MONGOLAB_URI", "localhost:27017")
+		mongoDB_uri = os.environ.get("MONGOLAB_URI", "localhost:27017")
 
-		last_slash = mongodb_uri.rfind("/")
-		dbname = mongodb_uri[last_slash + 1:]
+		last_slash = mongoDB_uri.rfind("/")
+		dbName = mongoDB_uri[last_slash + 1:]
 
-		if dbname == mongodb_uri:
-			dbname = "operationBryan"
+		if dbName == mongoDB_uri:
+			dbName = "operationBryan"
 
 		try:
-			connection = Connection(mongodb_uri)
+			connection = Connection(mongoDB_uri)
 			connection.register([])
-			self.database = connection[dbname]
+			self.database = connection[dbName]
 		except ConnectionError:
 			print('Error: Unable to connect to database.')
 			sys.exit(1)
@@ -38,8 +39,20 @@ class database:
 		for entry in collection.find(criteria, selection).sort(sort):
 			dataList.append(entry)
 
-		if dump: return self.dumpObject(dataList)
-		else: return dataList
+		if dump:
+			return self.dumpObject(dataList)
+		else:
+			return dataList
+
+	def getSingleData(self, collectionName, dump=True, criteria=None, selection=None, sort=None):
+		data = self.getData(collectionName, dump=False, criteria=criteria, selection=selection, sort=sort)
+
+		data = data[0]
+
+		if dump:
+			return self.dumpObject(data)
+		else:
+			return data
 
 	def getDistinct(self, collectionName, dump=True, criteria=None, selection=None, distinct="", sort=None):
 		collection = self.getCollection(collectionName)
@@ -50,8 +63,10 @@ class database:
 		for entry in collection.find(criteria, selection).sort(sort).distinct(distinct):
 			dataList.append(entry)
 
-		if dump: return self.dumpObject(dataList)
-		else: return dataList
+		if dump:
+			return self.dumpObject(dataList)
+		else:
+			return dataList
 
 	def dumpObject(self, jsonObject):
 		return json.dumps(jsonObject, default=json_util.default)

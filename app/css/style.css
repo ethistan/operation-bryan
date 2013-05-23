@@ -10,12 +10,10 @@ body {
   font-size: 2em;
   background: #cecece;
   border-bottom: 1px solid black;
+  height: 60px;
 }
 .header h1 {
   margin: 0px;
-}
-.content {
-  margin: 10px;
 }
 .smaller-text {
   font-size: 0.8em;
@@ -24,15 +22,41 @@ body {
 .indent {
   margin-left: 20px;
 }
+.central-strip {
+  position: absolute;
+  top: 145px;
+  bottom: 85px;
+  left: 0px;
+  right: 0px;
+}
+.left,
+.right {
+  position: absolute;
+  height: 100%;
+}
 .left {
-  width: 66%;
-  float: left;
-  margin-right: 0.5%;
+  left: 0px;
+  right: 250px;
+  margin: 0px;
+  padding: 10px 10px 10px 0px;
+}
+.left .well {
+  margin: 0px;
 }
 .right {
-  width: 33%;
-  float: right;
-  margin-left: 0.5%;
+  width: 250px;
+  right: 0px;
+  top: 0px;
+}
+.top,
+.bottom {
+  position: fixed;
+  height: 85px;
+  width: 100%;
+}
+.top.bottom,
+.bottom.bottom {
+  bottom: 0px;
 }
 .well {
   background: #f3f3f3;
@@ -41,45 +65,107 @@ body {
 .edit-box {
   cursor: pointer;
 }
-.conceptLinks {
-  margin-top: 5px;
+.concept-link-holder {
+  background: #f3f3f3;
+  padding: 5px;
+  height: 100%;
 }
-.conceptLinks .conceptLink,
-.conceptLinks .btn {
+.concept-link-holder .title-holder {
+  float: left;
+  width: 110px;
+  text-align: center;
+}
+.concept-link-holder .title-holder .title {
+  line-height: 40px;
+}
+.concept-link-holder .concept-links {
+  margin-top: 5px;
+  margin-left: 110px;
+}
+.concept-link-holder .concept-links .concept-link,
+.concept-link-holder .concept-links .btn {
   float: left;
   border: 1px solid #aaaaaa;
-  height: 100px;
+  height: 70px;
 }
-.conceptLinks .conceptLink {
+.concept-link-holder .concept-links .concept-link {
   background: whitesmoke;
-  padding: 10px 5px;
-  width: 22.5%;
+  padding: 5px;
+  width: 19.2%;
   overflow: hidden;
   text-overflow: ellipsis;
   margin: 0px;
   margin-left: -1px;
 }
-.conceptLinks .conceptLink h3 {
+.concept-link-holder .concept-links .concept-link h3 {
   font-size: 0.9em;
   padding-top: 0px;
   line-height: 20px;
   padding: 0px;
   margin: 0px;
 }
-.conceptLinks .btn {
-  width: 4.5%;
+.concept-link-holder .concept-links .concept-link:hover {
+  background: #cecece;
+  cursor: pointer;
+}
+.concept-link-holder .concept-links .concept-link:hover a {
+  text-decoration: none;
+  color: #00009d;
+}
+.concept-link-holder .concept-links .concept-link:hover a .smaller-text {
+  color: white;
+}
+.concept-link-holder .concept-links .btn {
+  width: 2%;
   padding: 0px;
   text-align: center;
 }
-.conceptLinks .btn:first-of-type {
+.concept-link-holder .concept-links .btn:first-of-type {
   border-radius: 10px 0px 0px 10px;
 }
-.conceptLinks .btn:last-of-type {
+.concept-link-holder .concept-links .btn:last-of-type {
   border-radius: 0px 10px 10px 0px;
   margin-left: -1px;
 }
-.title {
+.concept-link-holder.vertical {
+  overflow-y: hidden;
+}
+.concept-link-holder.vertical .title-holder {
+  width: 100%;
+}
+.concept-link-holder.vertical .title-holder .title {
+  line-height: 35px;
+  float: left;
+}
+.concept-link-holder.vertical .title-holder .btn {
+  float: right;
+}
+.concept-link-holder.vertical .concept-links {
   margin: 0px;
+}
+.concept-link-holder.vertical .concept-links .concept-link,
+.concept-link-holder.vertical .concept-links .btn {
+  float: none;
+  width: 100%;
+}
+.concept-link-holder.vertical .concept-links .concept-link {
+  margin-left: 0px;
+}
+.concept-link-holder.vertical .concept-links .btn {
+  height: 2%;
+  padding: 0px;
+  text-align: center;
+}
+.concept-link-holder.vertical .concept-links .btn:first-of-type {
+  border-radius: 10px 10px 0px 0px;
+}
+.concept-link-holder.vertical .concept-links .btn:last-of-type {
+  border-radius: 0px 0px 10px 10px;
+  margin-left: 0px;
+}
+.concept {
+  height: 100%;
+  overflow-y: auto;
 }
 .concept .label {
   text-transform: capitalize;
@@ -94,8 +180,14 @@ body {
   margin-bottom: 5px;
   width: 100%;
 }
+.title {
+  margin: 0px;
+}
 .floatRight {
   float: right;
+}
+.floatLeft {
+  float: left;
 }
 .clear {
   clear: both;
