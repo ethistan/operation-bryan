@@ -1,0 +1,10 @@
+Flask==0.9
+Flask-Jasmine==1.3a
+Jinja2==2.6
+Werkzeug==0.8.3
+cloudinary==1.0.1
+distribute==0.6.27
+mongokit==0.8
+poster==0.8.1
+pymongo==2.2.1
+virtualenv==1.7.1.2
