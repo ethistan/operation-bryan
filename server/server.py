@@ -12,8 +12,8 @@ app = Flask("Operation Bryan")
 database = mongo()
 getImageConnection()
 
-static_root = "../app"
-test_root = "../test"
+static_root = "app"
+test_root = "test"
 
 @app.route('/')
 def index():
