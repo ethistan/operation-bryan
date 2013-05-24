@@ -114,9 +114,10 @@ angular.module('operationBryan.directives', []).
 			replace: true,
 			scope: {
 				conceptList: '=list',
-				title: '@title'
+				title: '@title',
+				cid: '=cid'
 			},
-			controller: function ($scope, $element, $attrs) {
+			controller: function ($scope, $element, $attrs, Concept) {
 				$scope.start = 0;
 				$scope.size = 5;
 				$scope.horizontalOrientation = !$attrs.orientation || $attrs.orientation == "horizontal";
@@ -169,10 +170,15 @@ angular.module('operationBryan.directives', []).
 				}
 
 				$scope.addToList = function () {
-					$scope.conceptList.push({
-						name: "New!",
-						overview: "What a deal!"
-					})
+					console.log("Concept:", $scope.cid);
+					var newConcept = Concept.create({id: $scope.cid}, function () {
+						$scope.conceptList.push({
+						id: newConcept.id.$oid,
+							name: newConcept.name,
+							overview: newConcept.overview
+						});
+					});
+
 				};
 			},
 			templateUrl: "partials/scrollingWindow.html"

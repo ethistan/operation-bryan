@@ -1,14 +1,10 @@
 <div class="top">
-	<scrolling-window list="concept.parents" title="Parents"></scrolling-window>
+	<scrolling-window list="concept.parents" title="Parents" cid="concept.id"></scrolling-window>
 </div>
 
 <div class="central-strip">
 	<div class="left">
 		<div class="well concept">
-			<!--<div class="floatRight smaller-text">-->
-				<!--{{concept.id}}-->
-			<!--</div>-->
-
 			<edit-field type="input" name="name" field="concept">
 				<h2 class="title">{{concept.name}}</h2>
 			</edit-field>
@@ -32,11 +28,11 @@
 	</div>
 
 	<div class="right">
-		<scrolling-window list="concept.related" title="Related" orientation="vertical"></scrolling-window>
+		<scrolling-window list="concept.related" title="Related" cid="concept.id" orientation="vertical"></scrolling-window>
 	</div>
 </div>
 
 <div class="bottom">
-	<scrolling-window list="concept.children" title="Children"></scrolling-window>
+	<scrolling-window list="concept.children" title="Children" cid="concept.id"></scrolling-window>
 </div>
 

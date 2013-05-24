@@ -8,5 +8,10 @@
 angular.module('operationBryan.services', ['ngResource']).
 	value('version', '0.1')
 	.factory("Concept", function ($resource) {
-		return $resource("api/concept/:id", {id: "@id"}, {});
+		return $resource("api/concept/:id", {id: "@id"}, {
+			create: {
+				method: "CREATE",
+				params: {id: "@id"}
+			}
+		});
 	});

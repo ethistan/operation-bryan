@@ -29,7 +29,6 @@ def getCss(cssFile):
 
 @app.route('/lib/<library>/<jsFile>')
 def getLibraryJs(library, jsFile):
-	print "The other other lib"
 	return send_from_directory(static_root, "lib/" + library + "/" + jsFile)
 
 @app.route('/js/<jsFile>')
@@ -69,6 +68,8 @@ def getConcept(conceptId):
 
 	arrNames = ["parents", "related", "children"]
 
+	print "Data:", data
+
 	for array in arrNames:
 		newArray = []
 
@@ -90,6 +91,8 @@ def saveConcept(conceptId):
 	for array in arrNames:
 		newArray = []
 
+		print array, ":", data[array]
+
 		for child in data[array]:
 			newArray.append(child["id"])
 
@@ -98,6 +101,21 @@ def saveConcept(conceptId):
 	database.save("concepts", data)
 
 	return getConcept(conceptId)
+
+@app.route('/api/concept/<conceptId>', methods=["CREATE"])
+def createConcept(conceptId):
+	data = {
+		"name": "New Concept",
+	    "overview": "Sample overview",
+	    "parents": [conceptId],
+	    "children": [],
+	    "related": [],
+	    "fields": []
+	}
+
+	newConcept = database.save("concepts", data)
+
+	return database.dumpObject({"id": newConcept, "name": "New Concept", "overview": "Sample Overview"})
 
 @app.route('/image/<imagePage>')
 def getImagePage(imagePage):

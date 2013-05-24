@@ -4,6 +4,7 @@ from mongokit.mongo_exceptions import ConnectionError
 from mongokit.connection import Connection
 import sys
 import os
+from models.concept import Concept
 
 __author__ = 'Peter Budd'
 
@@ -20,7 +21,7 @@ class database:
 
 		try:
 			connection = Connection(mongoDB_uri)
-			connection.register([])
+			connection.register([Concept])
 			self.database = connection[dbName]
 		except ConnectionError:
 			print('Error: Unable to connect to database.')
