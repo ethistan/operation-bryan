@@ -13,11 +13,13 @@ angular.module('operationBryan.directives', []).
 			restrict: 'E',
 			transclude: true,
 			scope: {
-				field: "=field"
+				field: "=field",
+				fields: "=fields"
 			},
 			controller: function ($scope, $element, $attrs) {
 				$scope.type = $attrs.type;
 				$scope.name = $attrs.name;
+				$scope.showDelete = $attrs.showDelete;
 
 				$scope.formClass = function () {
 					if ($scope.type == "textarea") {
@@ -54,6 +56,11 @@ angular.module('operationBryan.directives', []).
 					}
 					$scope.showValue();
 				};
+
+				$scope.removeField = function() {
+					var indexOf = $scope.fields.indexOf($scope.field);
+					$scope.fields.splice(indexOf, 1);
+				}
 
 				function convertLinks(text) {
 					var newValue = [];
@@ -117,7 +124,7 @@ angular.module('operationBryan.directives', []).
 				title: '@title',
 				cid: '=cid'
 			},
-			controller: function ($scope, $element, $attrs, Concept) {
+			controller: function ($scope, $element, $attrs, $location, Concept) {
 				$scope.start = 0;
 				$scope.size = 5;
 				$scope.horizontalOrientation = !$attrs.orientation || $attrs.orientation == "horizontal";
@@ -157,7 +164,7 @@ angular.module('operationBryan.directives', []).
 					}
 
 					return c;
-				}
+				};
 
 				$scope.conceptLinkHolderClass = function () {
 					var c = "concept-link-holder ";
@@ -167,13 +174,16 @@ angular.module('operationBryan.directives', []).
 					}
 
 					return c;
-				}
+				};
+
+				$scope.changeConcept = function () {
+					$location.url("/concepts/" + this.concept.id);
+				};
 
 				$scope.addToList = function () {
-					console.log("Concept:", $scope.cid);
-					var newConcept = Concept.create({id: $scope.cid}, function () {
+					var newConcept = Concept.create({id: $scope.cid, owner: $scope.title}, function () {
 						$scope.conceptList.push({
-						id: newConcept.id.$oid,
+							id: newConcept.id.$oid,
 							name: newConcept.name,
 							overview: newConcept.overview
 						});

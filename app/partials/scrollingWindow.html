@@ -12,12 +12,10 @@
 			<i ng-class="buttonIcon('previous');"></i>
 		</button>
 
-		<div class="concept-link" ng-repeat="concept in conceptList | window:start:size">
-			<a href="#/concepts/{{concept.id}}" class="thumb">
-				<h3>{{concept.name}}</h3>
+		<div class="concept-link" ng-repeat="concept in conceptList | window:start:size" ng-click="changeConcept();">
+			<h3>{{concept.name}}</h3>
 
-				<p class="smaller-text">{{concept.overview}}</p>
-			</a>
+			<p class="smaller-text">{{concept.overview}}</p>
 		</div>
 		<button class="btn" ng-class="hasMore('end')" ng-click="changeListValue(1);">
 			<i ng-class="buttonIcon('next');"></i>

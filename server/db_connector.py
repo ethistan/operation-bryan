@@ -48,12 +48,15 @@ class database:
 	def getSingleData(self, collectionName, dump=True, criteria=None, selection=None, sort=None):
 		data = self.getData(collectionName, dump=False, criteria=criteria, selection=selection, sort=sort)
 
-		data = data[0]
+		try:
+			data = data[0]
 
-		if dump:
-			return self.dumpObject(data)
-		else:
-			return data
+			if dump:
+				return self.dumpObject(data)
+			else:
+				return data
+		except:
+			return None
 
 	def getDistinct(self, collectionName, dump=True, criteria=None, selection=None, distinct="", sort=None):
 		collection = self.getCollection(collectionName)

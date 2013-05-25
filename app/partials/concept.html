@@ -14,7 +14,7 @@
 			</edit-field>
 
 			<div class="field" ng-repeat="field in concept.fields">
-				<edit-field type="input" name="name" field="field">
+				<edit-field type="input" name="name" field="field" show-delete="true" fields="concept.fields">
 					<label for="{{field.name}}" class="label label-info">{{field.name}}</label>
 				</edit-field>
 

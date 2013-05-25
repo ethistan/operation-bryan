@@ -1,5 +1,9 @@
-<div>
+<div class="relative">
 	<div ng-show="!editing" class="edit-box" ng-click="editValue();" ng-transclude></div>
+
+	<button ng-show="!editing && showDelete" class="btn btn-danger delete-field-button" ng-click="removeField();">
+		<i class="icon icon-remove icon-white"></i>
+	</button>
 
 	<form ng-show="editing" ng-submit="updateValue()" ng-class="formClass();">
 		<textarea id="{{name}}" class="text-area" ng-show="showInput('textarea')" ng-model="newValue"></textarea>

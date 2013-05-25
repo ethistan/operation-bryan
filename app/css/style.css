@@ -64,6 +64,7 @@ body {
 }
 .edit-box {
   cursor: pointer;
+  display: inline-block;
 }
 .concept-link-holder {
   background: #f3f3f3;
@@ -182,6 +183,16 @@ body {
 }
 .title {
   margin: 0px;
+}
+.delete-field-button {
+  display: inline-block;
+  top: 0px;
+  padding: 0px 5px;
+  height: 19px;
+  line-height: 19px;
+}
+.relative {
+  position: relative;
 }
 .floatRight {
   float: right;

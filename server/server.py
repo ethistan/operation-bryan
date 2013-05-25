@@ -50,7 +50,6 @@ def testScenarios():
 
 @app.route('/test/lib/<library>/<fileName>')
 def getLibrary(library, fileName):
-	print "Getting route:", library
 	return send_from_directory(test_root, "lib/" + library + "/" + fileName)
 
 @app.route('/favicon.ico')
@@ -59,7 +58,13 @@ def favicon():
 
 @app.route('/api/concept/root')
 def getRoot():
-	rootId = database.getSingleData("metaData", selection={"root"}, dump=False)['root']
+	parentlessConcept = database.getSingleData("concepts", criteria={"parents": []}, dump=False)
+
+	if not parentlessConcept:
+		rootId = createConcept(None, False)
+	else:
+		rootId = parentlessConcept["_id"]
+
 	return getConcept(rootId)
 
 @app.route('/api/concept/<conceptId>', methods=["GET"])
@@ -67,8 +72,6 @@ def getConcept(conceptId):
 	data = database.getSingleData("concepts", criteria={"_id": ObjectId(conceptId)}, dump=False)
 
 	arrNames = ["parents", "related", "children"]
-
-	print "Data:", data
 
 	for array in arrNames:
 		newArray = []
@@ -91,8 +94,6 @@ def saveConcept(conceptId):
 	for array in arrNames:
 		newArray = []
 
-		print array, ":", data[array]
-
 		for child in data[array]:
 			newArray.append(child["id"])
 
@@ -103,19 +104,34 @@ def saveConcept(conceptId):
 	return getConcept(conceptId)
 
 @app.route('/api/concept/<conceptId>', methods=["CREATE"])
-def createConcept(conceptId):
+def createConcept(conceptId, fromApp=True):
 	data = {
 		"name": "New Concept",
 	    "overview": "Sample overview",
-	    "parents": [conceptId],
+	    "parents": [],
 	    "children": [],
 	    "related": [],
 	    "fields": []
 	}
 
+	if(conceptId):
+		owner = request.args.get("owner").lower()
+
+		print "Owner:", owner
+
+		if owner == "parents":
+			owner = "children"
+		elif owner == "children":
+			owner = "parents"
+
+		data[owner].append(conceptId)
+
 	newConcept = database.save("concepts", data)
 
-	return database.dumpObject({"id": newConcept, "name": "New Concept", "overview": "Sample Overview"})
+	if fromApp:
+		return database.dumpObject({"id": newConcept, "name": "New Concept", "overview": "Sample Overview"})
+	else:
+		return newConcept
 
 @app.route('/image/<imagePage>')
 def getImagePage(imagePage):

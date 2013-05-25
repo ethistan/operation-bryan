@@ -11,7 +11,7 @@ angular.module('operationBryan.services', ['ngResource']).
 		return $resource("api/concept/:id", {id: "@id"}, {
 			create: {
 				method: "CREATE",
-				params: {id: "@id"}
+				params: {id: "@id", owner: "@owner"}
 			}
 		});
 	});
