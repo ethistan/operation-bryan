@@ -38,7 +38,9 @@ angular.module('operationBryan.directives', []).
 				};
 
 				$scope.editValue = function () {
-					$scope.newValue = unconvertLink($scope.field[$scope.name]).join(" ");
+					var newValue = unconvertLink($scope.field[$scope.name]);
+					newValue = unconvertEnters(newValue);
+					$scope.newValue = newValue;
 					$scope.editing = true;
 
 					setTimeout(delayedFocus, 0);
@@ -50,9 +52,10 @@ angular.module('operationBryan.directives', []).
 
 				$scope.updateValue = function () {
 					var newValue = convertLinks(this.newValue);
+					newValue = convertEnters(newValue);
 
 					if (newValue.length) {
-						$scope.field[$scope.name] = newValue.join(" ");
+						$scope.field[$scope.name] = newValue;
 					}
 					$scope.showValue();
 				};
@@ -84,7 +87,7 @@ angular.module('operationBryan.directives', []).
 					}
 
 
-					return newValue;
+					return newValue.join(" ");
 				}
 
 				function unconvertLink(text) {
@@ -108,7 +111,15 @@ angular.module('operationBryan.directives', []).
 						}
 					});
 
-					return newValue;
+					return newValue.join(" ");
+				}
+
+				function convertEnters(text) {
+					return text.replace(/\n/gi, "<br>");
+				}
+
+				function unconvertEnters(text) {
+					return text.replace(/<br>/gi, "\n");
 				}
 			},
 			templateUrl: "partials/editField.html"
