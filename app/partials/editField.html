@@ -1,19 +1,14 @@
 <div class="relative">
-	<div ng-show="!editing" class="edit-box" ng-click="editValue();" ng-transclude></div>
+	<div class="edit-box" ng-click="showEditor($event);" ng-transclude></div>
 
 	<button ng-show="!editing && showDelete" class="btn btn-danger delete-field-button" ng-click="removeField();">
 		<i class="icon icon-remove icon-white"></i>
 	</button>
 
-	<form ng-show="editing" ng-submit="updateValue()" ng-class="formClass();">
-		<textarea id="{{name}}" class="text-area" ng-show="showInput('textarea')" ng-model="newValue"></textarea>
-		<input id="{{name}}" class="input-xxlarge" ng-show="showInput('input')" ng-model="newValue">
+	<hr ng-show="!editing && showDelete">
 
-		<div class="floatRight">
-			<button type="submit"><i class="icon icon-ok"></i></button>
-			<button type="button" ng-click="showValue()"><i class="icon icon-remove"></i></button>
-		</div>
-
-		<div class="clear"></div>
-	</form>
+	<div ng-show="editing" class="edit-buttons">
+		<button type="submit" ng-click="saveEdit();"><i class="icon icon-ok"></i></button>
+		<button type="button" ng-click="cancelEdit();"><i class="icon icon-remove"></i></button>
+	</div>
 </div>

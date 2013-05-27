@@ -5,30 +5,23 @@
 <div class="central-strip">
 	<div class="left">
 		<div class="well concept">
-			<edit-field type="input" name="name" field="concept">
-				<h2 class="title">{{concept.name}}</h2>
+			<edit-field field="concept.name">
+				<h2 class="title edit" ng-bind-html-unsafe="concept.name"></h2>
 			</edit-field>
 
-			<edit-field type="input" name="overview" field="concept">
-				<p class="smaller-text indent">{{concept.overview}}</p>
+			<edit-field field="concept.overview">
+				<p class="smaller-text indent edit" ng-bind-html-unsafe="concept.overview"></p>
 			</edit-field>
 
-			<div class="field" ng-repeat="field in concept.fields">
-				<edit-field type="input" name="name" field="field" show-delete="true" fields="concept.fields">
-					<label for="{{field.name}}" class="label label-info">{{field.name}}</label>
-				</edit-field>
-
-				<edit-field type="textarea" name="value" field="field">
-					<p class="indent" ng-bind-html-unsafe="field.value"></p>
-				</edit-field>
-			</div>
-
-			<button class="btn" ng-click="addField();"><i class="icon icon-plus"></i></button>
+			<edit-field field="concept.data">
+				<div class="edit" ng-bind-html-unsafe="concept.data"></div>
+			</edit-field>
 		</div>
 	</div>
 
 	<div class="right">
-		<scrolling-window list="concept.related" title="Related" cid="concept.id" orientation="vertical"></scrolling-window>
+		<scrolling-window list="concept.related" title="Related" cid="concept.id"
+		                  orientation="vertical"></scrolling-window>
 	</div>
 </div>
 

@@ -2,125 +2,50 @@
 
 /* Directives */
 
-angular.module('operationBryan.directives', []).
-	directive('appVersion', ['version', function (version) {
-		return function (scope, elm, attrs) {
-			elm.text(version);
-		};
-	}]).
-	directive('editField',function () {
+angular.module('operationBryan.directives', [])
+	.directive('editField',function () {
 		return {
 			restrict: 'E',
 			transclude: true,
 			scope: {
-				field: "=field",
-				fields: "=fields"
+				field: "=field"
 			},
 			controller: function ($scope, $element, $attrs) {
-				$scope.type = $attrs.type;
-				$scope.name = $attrs.name;
-				$scope.showDelete = $attrs.showDelete;
-
-				$scope.formClass = function () {
-					if ($scope.type == "textarea") {
-						return "edit-form padding";
-					}
-					return "edit-form";
-				}
+				var redactorFieldSelector = ".edit-box .edit";
 
 				$scope.showInput = function (type) {
 					return $scope.type == type;
 				}
 
-				function delayedFocus() {
-					var input = $($element).find("input:visible, textarea:visible");
-					input.select();
+				$scope.showEditor = function ($event) {
+					if (!$scope.editing && !$($event.srcElement).is("a")) {
+						var redactorField = $($element).find(redactorFieldSelector);
+						$scope.oldValue = redactorField.html();
+						redactorField.redactor({focus: true});
+
+						$scope.editing = true;
+					}
 				};
 
-				$scope.editValue = function () {
-					var newValue = unconvertLink($scope.field[$scope.name]);
-					newValue = unconvertEnters(newValue);
-					$scope.newValue = newValue;
-					$scope.editing = true;
-
-					setTimeout(delayedFocus, 0);
-				};
-
-				$scope.showValue = function () {
-					$scope.editing = false;
-				};
-
-				$scope.updateValue = function () {
-					var newValue = convertLinks(this.newValue);
-					newValue = convertEnters(newValue);
+				$scope.saveEdit = function () {
+					var newValue = $($element).find(redactorFieldSelector).getCode();
 
 					if (newValue.length) {
-						$scope.field[$scope.name] = newValue;
+						$scope.field = newValue;
 					}
-					$scope.showValue();
+
+					stopEditing();
 				};
 
-				$scope.removeField = function() {
-					var indexOf = $scope.fields.indexOf($scope.field);
-					$scope.fields.splice(indexOf, 1);
+				$scope.cancelEdit = function () {
+					$($element).find(redactorFieldSelector).html($scope.oldValue);
+					stopEditing();
 				}
 
-				function convertLinks(text) {
-					var newValue = [];
-
-					if (text) {
-						$(text.split(" ")).each(function (index, element) {
-							var startsWithHttp = element.indexOf("http://") == 0;
-							var startsWithWWW = element.indexOf("www.") == 0;
-
-							if (startsWithHttp || startsWithWWW) {
-								if (startsWithWWW) {
-									element = "http://" + element;
-								}
-
-								var comp = element.split("|");
-								element = "<a target='_blank' href='" + comp[0] + "'>" + comp[1] + "</a>";
-							}
-
-							newValue.push(element);
-						});
-					}
-
-
-					return newValue.join(" ");
-				}
-
-				function unconvertLink(text) {
-					var newValue = [];
-
-					var badValues = [
-						["target='_blank'", ""],
-						["<a", ""],
-						["href='", ""],
-						["'>", "|"],
-						["</a>", ""]
-					];
-
-					$(text.split(" ")).each(function (index, element) {
-						$(badValues).each(function (i, bad) {
-							element = element.replace(bad[0], bad[1]);
-						})
-
-						if (element) {
-							newValue.push(element);
-						}
-					});
-
-					return newValue.join(" ");
-				}
-
-				function convertEnters(text) {
-					return text.replace(/\n/gi, "<br>");
-				}
-
-				function unconvertEnters(text) {
-					return text.replace(/<br>/gi, "\n");
-				}
+				var stopEditing = function () {
+					$($element).find(redactorFieldSelector).destroyEditor();
+					$scope.editing = false;
+				};
 			},
 			templateUrl: "partials/editField.html"
 		};

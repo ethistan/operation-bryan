@@ -53,8 +53,27 @@
 }
 
 .edit-box {
-	cursor  : pointer;
+	width : 100%;
+
 	display : inline-block;
+}
+
+hr {
+	margin              : 5px 0px;
+	border-bottom-color : @grey;
+}
+
+.edit {
+	display : inline-block;
+
+	p {
+		margin : 0px;
+	}
+}
+
+.edit-buttons {
+	text-align : right;
+	height     : 20px;
 }
 
 .concept-link-holder {
@@ -206,7 +225,8 @@
 }
 
 .delete-field-button {
-	display     : inline-block;
+	position    : absolute;
+	right       : 0px;
 	top         : 0px;
 	padding     : 0px 5px;
 	height      : 19px;
@@ -215,4 +235,11 @@
 
 .relative {
 	position : relative;
+}
+
+.field {
+	background    : @grey;
+	.border-radius(5px);
+	margin-bottom : 10px;
+	padding       : 10px;
 }

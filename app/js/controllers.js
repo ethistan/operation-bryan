@@ -8,13 +8,6 @@ angular.module('operationBryan.controllers', []).
 
 		$scope.concept = Concept.get({id: $routeParams.id}, loadFunction);
 
-		$scope.addField = function () {
-			$scope.concept.fields.push({
-				name: "newField",
-				value: "Some new content for people who are awesome"
-			});
-		};
-
 		function loadFunction() {
 			$scope.concept.id = $scope.concept._id.$oid;
 			delete $scope.concept._id;
