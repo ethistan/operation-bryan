@@ -40,16 +40,28 @@ angular.module('operationBryan.directives', [])
 				}
 
 				var stopEditing = function () {
-					$($element).find(redactorFieldSelector).destroyEditor();
+					var redactorField = $($element).find(redactorFieldSelector);
+					redactorField.destroyEditor();
+					redactorField.unbind("keydown");
 					$scope.editing = false;
 				};
 
 				var checkKeyPress = function (event) {
+					var prevent = false,
+						buttonType;
 					if (event.keyCode == 83 && (event.ctrlKey || event.metaKey)) {
-						$($element).find("button[type='submit']").click();
+						buttonType = "submit";
+						prevent = true;
 					}
 					else if(event.keyCode == 27) {
-						$($element).find("button[type='button']").click();
+						buttonType = "button";
+						prevent = true;
+					}
+
+					if(prevent) {
+						event.preventDefault();
+						event.stopPropagation();
+						$($element).find("button[type='" + buttonType + "']").click();
 					}
 				}
 			},
