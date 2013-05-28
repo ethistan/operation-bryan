@@ -13,13 +13,10 @@ angular.module('operationBryan.directives', [])
 			controller: function ($scope, $element, $attrs) {
 				var redactorFieldSelector = ".edit-box .edit";
 
-				$scope.showInput = function (type) {
-					return $scope.type == type;
-				}
-
 				$scope.showEditor = function ($event) {
 					if (!$scope.editing && !$($event.srcElement).is("a")) {
 						var redactorField = $($element).find(redactorFieldSelector);
+						redactorField.keydown(checkKeyPress);
 						$scope.oldValue = redactorField.html();
 						redactorField.redactor({focus: true});
 
@@ -46,6 +43,15 @@ angular.module('operationBryan.directives', [])
 					$($element).find(redactorFieldSelector).destroyEditor();
 					$scope.editing = false;
 				};
+
+				var checkKeyPress = function (event) {
+					if (event.keyCode == 83 && (event.ctrlKey || event.metaKey)) {
+						$($element).find("button[type='submit']").click();
+					}
+					else if(event.keyCode == 27) {
+						$($element).find("button[type='button']").click();
+					}
+				}
 			},
 			templateUrl: "partials/editField.html"
 		};
