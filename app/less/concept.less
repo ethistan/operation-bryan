@@ -265,11 +265,17 @@ hr {
 			border-left    : 1px solid #dddddd;
 		}
 
-		thead th {
-			vertical-align : bottom;
-			background     : black;
-			color          : white;
-			font-weight    : bold;
+		thead {
+			tr {
+				border-bottom : 2px solid black;
+			}
+
+			th, td {
+				vertical-align : bottom;
+				background     : black;
+				color          : white;
+				font-weight    : bold;
+			}
 		}
 
 		caption + thead tr:first-child th,

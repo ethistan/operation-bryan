@@ -234,7 +234,11 @@ hr {
   border-top: 1px solid #dddddd;
   border-left: 1px solid #dddddd;
 }
-.concept table thead th {
+.concept table thead tr {
+  border-bottom: 2px solid black;
+}
+.concept table thead th,
+.concept table thead td {
   vertical-align: bottom;
   background: black;
   color: white;
