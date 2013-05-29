@@ -53,7 +53,7 @@
 }
 
 .edit-box {
-	width : 100%;
+	width   : 100%;
 
 	display : inline-block;
 }
@@ -216,6 +216,73 @@ hr {
 		textarea {
 			margin-bottom : 5px;
 			width         : 100%;
+		}
+	}
+
+	.redactor_toolbar {
+		li {
+			a.redactor_btn_saveButton, a.redactor_btn_cancelButton {
+				display             : inline-block;
+				width               : 25px;
+				height              : 25px;
+				margin-top          : -10px;
+				*margin-right       : .3em;
+				line-height         : 14px;
+				vertical-align      : text-top;
+				background-image    : url("../img/glyphicons-halflings.png");
+				background-position : 14px 14px;
+				background-repeat   : no-repeat;
+
+			}
+
+			a.redactor_btn_saveButton {
+				background-position : -283px 5px;
+			}
+
+			a.redactor_btn_cancelButton {
+				background-position : -307px 5px;
+			}
+		}
+	}
+
+	table {
+		border           : 1px solid #dddddd;
+		border-collapse  : separate;
+		*border-collapse : collapse;
+		border-left      : 0;
+
+		.border-radius(4px);
+
+		width            : 100%;
+		margin-bottom    : 20px;
+
+		th, td {
+			padding        : 8px;
+			line-height    : 20px;
+			text-align     : left;
+			vertical-align : top;
+			border-top     : 1px solid #dddddd;
+			border-left    : 1px solid #dddddd;
+		}
+
+		thead th {
+			vertical-align : bottom;
+			background     : black;
+			color          : white;
+			font-weight    : bold;
+		}
+
+		caption + thead tr:first-child th,
+		caption + thead tr:first-child td,
+		colgroup + thead tr:first-child th,
+		colgroup + thead tr:first-child td,
+		thead:first-child tr:first-child th,
+		thead:first-child tr:first-child td {
+			border-top : 0;
+		}
+
+		tbody + tbody {
+			border-top : 2px solid #dddddd;
 		}
 	}
 }

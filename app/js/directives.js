@@ -18,7 +18,20 @@ angular.module('operationBryan.directives', [])
 						var redactorField = $($element).find(redactorFieldSelector);
 						redactorField.keydown(checkKeyPress);
 						$scope.oldValue = redactorField.html();
-						redactorField.redactor({focus: true});
+						redactorField.redactor({
+							focus: true,
+							buttonsAdd: ['|', 'saveButton', "cancelButton"],
+							buttonsCustom: {
+								saveButton: {
+									title: 'Save',
+									callback: $scope.saveEdit
+								},
+								cancelButton: {
+									title: 'Save',
+									callback: $scope.cancelEdit
+								}
+							}
+						});
 
 						$scope.editing = true;
 					}
@@ -50,18 +63,18 @@ angular.module('operationBryan.directives', [])
 					var prevent = false,
 						buttonType;
 					if (event.keyCode == 83 && (event.ctrlKey || event.metaKey)) {
-						buttonType = "submit";
+						buttonType = ".redactor_btn_saveButton";
 						prevent = true;
 					}
-					else if(event.keyCode == 27) {
-						buttonType = "button";
+					else if (event.keyCode == 27) {
+						buttonType = ".redactor_btn_cancelButton";
 						prevent = true;
 					}
 
-					if(prevent) {
+					if (prevent) {
 						event.preventDefault();
 						event.stopPropagation();
-						$($element).find("button[type='" + buttonType + "']").click();
+						$($element).find(buttonType).click();
 					}
 				}
 			},
