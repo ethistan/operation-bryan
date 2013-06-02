@@ -8,7 +8,8 @@ angular.module('operationBryan.directives', [])
 			restrict: 'E',
 			transclude: true,
 			scope: {
-				field: "=field"
+				field: "=field",
+				saveFunction: "=save"
 			},
 			controller: function ($scope, $element, $attrs) {
 				var redactorFieldSelector = ".edit-box .edit";
@@ -42,6 +43,7 @@ angular.module('operationBryan.directives', [])
 
 					if (newValue.length) {
 						$scope.field = newValue;
+						$scope.saveFunction($scope.oldValue, newValue);
 					}
 
 					stopEditing();
@@ -61,22 +63,21 @@ angular.module('operationBryan.directives', [])
 
 				var checkKeyPress = function (event) {
 					var valid = false,
-						buttonType;
+						functionName;
 					if (event.keyCode == 83 && (event.ctrlKey || event.metaKey)) {
-						buttonType = ".redactor_btn_saveButton";
+						functionName = "saveEdit";
 						valid = true;
 					}
 					else if (event.keyCode == 27) {
-						buttonType = ".redactor_btn_cancelButton";
+						functionName = "cancelEdit";
 						valid = true;
 					}
 
 					if (valid) {
-//						$($element).find(buttonType).click();
-						$scope.saveEdit();
-
 						event.preventDefault();
 						event.stopPropagation();
+
+						$scope[functionName]();
 					}
 				}
 			},

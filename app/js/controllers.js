@@ -12,14 +12,12 @@ angular.module('operationBryan.controllers', []).
 			$scope.concept.id = $scope.concept._id.$oid;
 			delete $scope.concept._id;
 
-			listener = $scope.$watch('concept', saveFunction, true);
+			listener = $scope.$watch('concept', $scope.saveFunction, true);
 		}
 
-		function saveFunction(oldValue, newValue) {
-
+		$scope.saveFunction = function(oldValue, newValue) {
 			if (oldValue != newValue) {
 				listener();
-
 				$scope.concept.$save(loadFunction);
 			}
 		};
