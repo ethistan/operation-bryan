@@ -60,26 +60,29 @@ angular.module('operationBryan.directives', [])
 				};
 
 				var checkKeyPress = function (event) {
-					var prevent = false,
+					var valid = false,
 						buttonType;
 					if (event.keyCode == 83 && (event.ctrlKey || event.metaKey)) {
 						buttonType = ".redactor_btn_saveButton";
-						prevent = true;
+						valid = true;
 					}
 					else if (event.keyCode == 27) {
 						buttonType = ".redactor_btn_cancelButton";
-						prevent = true;
+						valid = true;
 					}
 
-					if (prevent) {
+					if (valid) {
+//						$($element).find(buttonType).click();
+						$scope.saveEdit();
+
 						event.preventDefault();
 						event.stopPropagation();
-						$($element).find(buttonType).click();
 					}
 				}
 			},
 			templateUrl: "partials/editField.html"
-		};
+		}
+			;
 	}).
 	directive('scrollingWindow', function () {
 		return {

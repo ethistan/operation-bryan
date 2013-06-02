@@ -111,13 +111,11 @@ def createConcept(conceptId, fromApp=True):
 	    "parents": [],
 	    "children": [],
 	    "related": [],
-	    "fields": []
+	    "data": "This is some sample data"
 	}
 
 	if(conceptId):
 		owner = request.args.get("owner").lower()
-
-		print "Owner:", owner
 
 		if owner == "parents":
 			owner = "children"

@@ -16,6 +16,7 @@ angular.module('operationBryan.controllers', []).
 		}
 
 		function saveFunction(oldValue, newValue) {
+
 			if (oldValue != newValue) {
 				listener();
 
