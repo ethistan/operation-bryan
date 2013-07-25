@@ -7,12 +7,11 @@ angular.module('operationBryan.directives', [])
 		return {
 			restrict: 'E',
 			transclude: true,
-			scope: {
-				field: "=field",
-				saveFunction: "=save"
-			},
+			scope: true,
 			controller: function ($scope, $element, $attrs) {
 				var redactorFieldSelector = ".edit-box .edit";
+
+				var field = $attrs.field;
 
 				$scope.showEditor = function ($event) {
 					if (!$scope.editing && !$($event.srcElement).is("a")) {
@@ -39,11 +38,10 @@ angular.module('operationBryan.directives', [])
 				};
 
 				$scope.saveEdit = function () {
-					var newValue = $($element).find(redactorFieldSelector).getCode();
+					var newValue = $($element).find(redactorFieldSelector).redactor('get');
 
 					if (newValue.length) {
-						$scope.field = newValue;
-						$scope.saveFunction($scope.oldValue, newValue);
+						$scope.concept[field] = newValue;
 					}
 
 					stopEditing();
@@ -56,7 +54,7 @@ angular.module('operationBryan.directives', [])
 
 				var stopEditing = function () {
 					var redactorField = $($element).find(redactorFieldSelector);
-					redactorField.destroyEditor();
+					redactorField.redactor('destroy');
 					redactorField.unbind("keydown");
 					$scope.editing = false;
 				};

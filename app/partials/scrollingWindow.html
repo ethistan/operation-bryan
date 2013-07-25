@@ -13,9 +13,9 @@
 		</button>
 
 		<div class="concept-link" ng-repeat="concept in conceptList | window:start:size" ng-click="changeConcept();">
-			<h3>{{concept.name}}</h3>
+			<h3 ng-bind-html-unsafe="concept.name"></h3>
 
-			<p class="smaller-text">{{concept.overview}}</p>
+			<p class="smaller-text" ng-bind-html-unsafe="concept.overview"></p>
 		</div>
 		<button class="btn" ng-class="hasMore('end')" ng-click="changeListValue(1);">
 			<i ng-class="buttonIcon('next');"></i>
